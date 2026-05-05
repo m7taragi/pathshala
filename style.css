@@ -1,0 +1,182 @@
+:root {
+    --bg: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.6);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #6366f1;
+}
+
+[data-theme="light"] {
+    --bg: #f1f5f9;
+    --card-bg: rgba(255, 255, 255, 0.8);
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --primary: #4f46e5;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background 0.4s ease;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Centers the whole page content */
+}
+
+.navbar {
+    width: 100%;
+    max-width: 1000px;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    padding: 2rem;
+}
+
+/* Centered Grid with Square Cards */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    /* Centers cards if they don't fill a row */
+}
+
+.card {
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    border-radius: 20px;
+    text-decoration: none;
+    color: inherit;
+    aspect-ratio: 1 / 1;
+    /* Forces square shape */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* The hidden preview image */
+.card-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    /* Hidden by default */
+    transform: scale(1.1);
+    /* Slightly zoomed out for a 'zoom-in' effect later */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 1;
+    /* Sits behind text if needed, or in front for reveal */
+}
+
+.card-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    border-radius: 12px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
+/* Reveal image on hover */
+.card:hover .card-preview {
+    opacity: 1;
+    /* Fades in */
+    transform: scale(1);
+    /* Zooms to actual size */
+}
+
+/* Optional: Fade text out slightly to let the image shine */
+.card:hover .card-content {
+    background: rgba(0, 0, 0, 0.6);
+    /* Darkens on hover for better contrast */
+}
+
+.card.reveal {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card:hover {
+    border-color: var(--primary);
+    transform: scale(1.03) !important;
+    background: rgba(99, 102, 241, 0.05);
+}
+
+.tag {
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card h2 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.link-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+#theme-toggle {
+    background: var(--card-bg);
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    color: var(--text-main);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+[data-theme="light"] .moon,
+[data-theme="dark"] .sun {
+    display: none;
+}

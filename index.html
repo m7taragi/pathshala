@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathshala | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">Pathshala</div>
+        <button id="theme-toggle" aria-label="Toggle Dark Mode">
+            <svg class="sun" xmlns="http://w3.org" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="moon" xmlns="http://w3.org" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        </button>
+    </nav>
+
+    <header class="hero">
+        <h1>Pathshala</h1>
+        <p>A central hub for my web development journey. Each project explores a unique aspect of modern front-end
+            design.</p>
+    </header>
+
+    <div class="container">
+        <main class="project-grid">
+            <!-- Project 1 -->
+            <a href="HTML/Index.html" class="card">
+                <img src="HTML/preview.jpg" alt="Project 1 Preview" class="card-preview">
+                <div class="card-content">
+                    <span class="tag">HTML/CSS</span>
+                    <h2>Glass UI</h2>
+                    <p>An exploration of transparency and blur effects in modern dashboards.</p>
+                    <span class="link-text">Explore Project →</span>
+                </div>
+            </a>
+
+            <!-- Project 2 -->
+            <a href="project2/" class="card">
+                <img src="project2/preview.jpg" alt="Project 2 Preview" class="card-preview">
+                <div class="card-content">
+                    <span class="tag">Layouts</span>
+                    <h2>Flex-Grid</h2>
+                    <p>A complex responsive landing page built purely with CSS Grid systems.</p>
+                    <span class="link-text">Explore Project →</span>
+                </div>
+            </a>
+
+            <!-- Project 3 -->
+            <a href="project3/" class="card">
+                <img src="project3/preview.jpg" alt="Project 3 Preview" class="card-preview">
+                <div class="card-content">
+                    <span class="tag">Interactive</span>
+                    <h2>Mini Games</h2>
+                    <p>Small logic-based games developed using basic JavaScript and DOM events.</p>
+                    <span class="link-text">Explore Project →</span>
+                </div>
+            </a>
+
+            <!-- Project 4 -->
+            <a href="project4/" class="card">
+                <img src="project4/preview.jpg" alt="Project 4 Preview" class="card-preview">
+                <div class="card-content">
+                    <span class="tag">Utility</span>
+                    <h2>Task Tracker</h2>
+                    <p>A lightweight productivity tool for managing daily coding habits.</p>
+                    <span class="link-text">Explore Project →</span>
+                </div>
+            </a>
+
+            <!-- Project 5 -->
+            <a href="project5/" class="card">
+                <img src="project5/preview.jpg" alt="Project 5 Preview" class="card-preview">
+                <div class="card-content">
+                    <span class="tag">Design</span>
+                    <h2>Type-Study</h2>
+                    <p>A focused look at typography, hierarchy, and reading flow on the web.</p>
+                    <span class="link-text">Explore Project →</span>
+                </div>
+            </a>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
