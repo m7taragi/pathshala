@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Project | Pathshala</title>
+    <!-- Linking to your root styles to keep design consistent -->
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Specific styles for this project page */
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .project-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .demo-area {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 20px;
+            min-height: 400px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="../" class="back-link">← Back to Pathshala</a>
+
+    <header class="hero">
+        <span class="tag">Upcoming Project</span>
+        <h1>Project Title</h1>
+        <p>A detailed description of what you are building. This project focuses on high performance and clean code
+            architecture.</p>
+    </header>
+
+    <main class="project-content">
+        <!-- This is where your actual project code goes -->
+        <div class="demo-area">
+            <p style="color: var(--text-muted)">[ Your Project Interactive Demo or Content Goes Here ]</p>
+        </div>
+    </main>
+
+    <!-- Using your existing script for theme and animations -->
+    <script src="../script.js"></script>
+</body>
+
+</html>
