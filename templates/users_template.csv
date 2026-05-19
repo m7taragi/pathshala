@@ -1,0 +1,4 @@
+email,password,role,empCode,designation,mobile,primaryOfficeName
+manager1@cavecore.app,Pass@123,Manager,M001,Area Manager,9988776655,Regional South
+district_lead@cavecore.app,Pass@123,Manager,D101,District Collector,9944332211,District Alpha
+viewer_user@cavecore.app,Pass@123,Viewer,V001,Observer,9911223344,Command Head Office
