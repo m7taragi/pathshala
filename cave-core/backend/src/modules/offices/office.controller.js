@@ -96,9 +96,10 @@ const getChildren = async (req, res, next) => {
 const updateOffice = async (req, res, next) => {
   try {
     const office = await Office.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true
     });
+
 
     if (!office) {
       throw new ApiError(404, 'Office not found');

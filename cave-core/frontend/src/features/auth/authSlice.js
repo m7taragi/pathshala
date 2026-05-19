@@ -28,6 +28,21 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const googleLoginUser = createAsyncThunk(
+  'auth/googleLogin',
+  async (credential, { rejectWithValue }) => {
+    try {
+      const { data } = await api.post('/auth/google', { credential });
+      localStorage.setItem('cave_token', data.data.token);
+      localStorage.setItem('cave_user', JSON.stringify(data.data));
+      return data.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.error || 'Google login failed');
+    }
+  }
+);
+
+
 export const registerUser = createAsyncThunk(
   'auth/register',
   async ({ email, password, role }, { rejectWithValue }) => {
@@ -87,7 +102,22 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
       })
+      // Google Login
+      .addCase(googleLoginUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(googleLoginUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+        state.token = action.payload.token;
+      })
+      .addCase(googleLoginUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
       // Register
+
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;

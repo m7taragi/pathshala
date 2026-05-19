@@ -6,6 +6,7 @@ export default function SubmissionsListPage() {
   const [submissions, setSubmissions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedSubmission, setSelectedSubmission] = useState(null);
 
   useEffect(() => {
     const fetchSubmissions = async () => {
@@ -29,6 +30,8 @@ export default function SubmissionsListPage() {
         <h1 className="page-title">Reports & Submissions</h1>
         <p className="page-subtitle">View and track all submitted data reports.</p>
       </div>
+
+      {error && <div className="alert alert-error">{error}</div>}
 
       <div className="glass-panel" style={{ overflow: 'hidden' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -61,7 +64,13 @@ export default function SubmissionsListPage() {
                   <td style={{ padding: '1rem' }}>{sub.submittedBy?.email}</td>
                   <td style={{ padding: '1rem' }}>{new Date(sub.submissionDate).toLocaleString()}</td>
                   <td style={{ padding: '1rem' }}>
-                    <button className="btn btn-secondary" style={{ fontSize: '0.8rem' }}>View Data</button>
+                    <button 
+                      className="btn btn-secondary" 
+                      style={{ fontSize: '0.8rem' }}
+                      onClick={() => setSelectedSubmission(sub)}
+                    >
+                      View Data
+                    </button>
                   </td>
                 </tr>
               ))
@@ -69,6 +78,52 @@ export default function SubmissionsListPage() {
           </tbody>
         </table>
       </div>
+
+      {selectedSubmission && (
+        <div className="modal-overlay" style={modalOverlayStyle}>
+          <div className="modal-content glass-panel" style={modalContentStyle}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <h2>Submission Data</h2>
+              <button className="btn-icon" onClick={() => setSelectedSubmission(null)}>✕</button>
+            </div>
+            
+            <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>OFFICE</div>
+              <div style={{ fontWeight: '600' }}>{selectedSubmission.officeId?.name} ({selectedSubmission.officeId?.tier})</div>
+            </div>
+
+            <div className="data-display" style={{ background: 'var(--bg-secondary)', padding: '1rem', borderRadius: 'var(--radius-md)', maxHeight: '400px', overflowY: 'auto' }}>
+              {Object.entries(selectedSubmission.data || {}).map(([key, value]) => (
+                <div key={key} style={{ marginBottom: '0.75rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--accent-primary)', marginBottom: '0.25rem' }}>{key}</div>
+                  <div style={{ color: 'var(--text-primary)' }}>{value?.toString() || 'N/A'}</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ marginTop: '2rem', textAlign: 'right' }}>
+              <button className="btn btn-primary" onClick={() => setSelectedSubmission(null)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+const modalOverlayStyle = {
+  position: 'fixed',
+  inset: 0,
+  background: 'rgba(0,0,0,0.5)',
+  backdropFilter: 'blur(4px)',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 1000
+};
+
+const modalContentStyle = {
+  width: '90%',
+  maxWidth: '500px',
+  padding: '2rem'
+};

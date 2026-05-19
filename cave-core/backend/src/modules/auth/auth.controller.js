@@ -1,7 +1,11 @@
 const bcrypt = require('bcryptjs');
 const User = require('../users/user.model');
 const generateToken = require('../../shared/generateToken');
+const { OAuth2Client } = require('google-auth-library');
 const { ApiError } = require('../../shared/errorHandler');
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
 
 /**
  * @desc    Register a new user
@@ -99,4 +103,55 @@ const getMe = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, getMe };
+/**
+ * @desc    Login user with Google SSO
+ * @route   POST /api/auth/google
+ */
+const googleLogin = async (req, res, next) => {
+  try {
+    const { credential } = req.body;
+
+    if (!credential) {
+      throw new ApiError(400, 'Please provide Google credential token');
+    }
+
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    
+    const payload = ticket.getPayload();
+    const { email, sub: googleId } = payload;
+
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      user = await User.create({
+        email,
+        googleId,
+        role: 'Viewer' // Default role
+      });
+    } else if (!user.googleId) {
+      user.googleId = googleId;
+      await user.save();
+    }
+
+    const token = generateToken(user._id);
+
+    res.json({
+      success: true,
+      data: {
+        _id: user._id,
+        email: user.email,
+        role: user.role,
+        primaryBase: user.primaryBase,
+        token
+      }
+    });
+  } catch (error) {
+    next(new ApiError(401, 'Invalid Google token'));
+  }
+};
+
+module.exports = { register, login, getMe, googleLogin };
+

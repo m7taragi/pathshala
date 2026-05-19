@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import DynamicForm from '../features/submissions/DynamicForm';
+import { useSelector } from 'react-redux';
 import api from '../services/api';
+
 
 export default function SubmissionPage() {
   const [searchParams] = useSearchParams();
   const formId = searchParams.get('formId');
   const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
+
   
   const [template, setTemplate] = useState(null);
   const [offices, setOffices] = useState([]);
@@ -35,7 +39,12 @@ export default function SubmissionPage() {
         );
         setOffices(validOffices);
         
-        if (validOffices.length > 0) setSelectedOffice(validOffices[0]._id);
+        if (user.role !== 'Admin' && user.primaryBase) {
+          setSelectedOffice(user.primaryBase?._id || user.primaryBase);
+        } else if (validOffices.length > 0) {
+          setSelectedOffice(validOffices[0]._id);
+        }
+
       } catch (err) {
         setError('Failed to load form data');
       } finally {
@@ -75,11 +84,18 @@ export default function SubmissionPage() {
             className="form-input" 
             value={selectedOffice} 
             onChange={(e) => setSelectedOffice(e.target.value)}
+            disabled={user.role !== 'Admin' && !!user.primaryBase}
           >
-            {offices.map(o => (
+            {user.role !== 'Admin' && user.primaryBase && (
+               <option value={user.primaryBase?._id || user.primaryBase}>
+                 {user.primaryBase?.name || 'Assigned Office'}
+               </option>
+            )}
+            {user.role === 'Admin' && offices.map(o => (
               <option key={o._id} value={o._id}>{o.name} ({o.tier})</option>
             ))}
           </select>
+
         </div>
       </div>
 

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { registerUser, clearError } from '../features/auth/authSlice'
+import { registerUser, googleLoginUser, clearError } from '../features/auth/authSlice'
+import { GoogleLogin } from '@react-oauth/google'
 import { useNavigate, Link } from 'react-router-dom'
+
 import './AuthPage.css'
 
 export default function RegisterPage() {
@@ -66,6 +68,26 @@ export default function RegisterPage() {
             {isLoading ? <span className="auth-spinner" /> : 'Create Account'}
           </button>
         </form>
+
+        <div className="auth-card__divider">
+          <span>or</span>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              dispatch(googleLoginUser(credentialResponse.credential));
+            }}
+            onError={() => {
+              console.error('Google Login Failed');
+            }}
+            theme="filled_black"
+            text="signup_with"
+            shape="rectangular"
+          />
+        </div>
+
+
         <p className="auth-card__footer-text">Already have an account? <Link to="/login" className="auth-card__link">Sign in</Link></p>
       </div>
     </div>

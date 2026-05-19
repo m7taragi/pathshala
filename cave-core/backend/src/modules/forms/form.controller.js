@@ -64,7 +64,8 @@ const updateForm = async (req, res, next) => {
     }
 
     const form = await FormTemplate.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      returnDocument: 'after',
+
       runValidators: true
     });
 
@@ -83,7 +84,8 @@ const deleteForm = async (req, res, next) => {
     const form = await FormTemplate.findByIdAndUpdate(
       req.params.id,
       { isActive: false },
-      { new: true }
+      { returnDocument: 'after' }
+
     );
 
     if (!form) {
