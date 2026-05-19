@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+cave-core/backend/node_modules/
+cave-core/frontend/node_modules/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+cave-core/backend/.env
+cave-core/frontend/.env
+
+# Build Output
+dist/
+build/
+cave-core/frontend/dist/
+
+# IDE & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
