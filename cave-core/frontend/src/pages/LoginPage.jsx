@@ -118,7 +118,7 @@ export default function LoginPage() {
           Don't have an account? <Link to="/register" className="auth-card__link">Create one</Link>
         </p>
         <p className="auth-card__footer-text" style={{ marginTop: '0.75rem' }}>
-          Need credentials? Check the <a href="https://github.com/m7taragi/pathshala/blob/main/cave-core/README.md" target="_blank" rel="noopener noreferrer" className="auth-card__link">README.md</a>
+          Need credentials? Check the <a href="https://github.com/m7taragi/pathshala/blob/master/cave-core/README.md" target="_blank" rel="noopener noreferrer" className="auth-card__link">README.md</a>
         </p>
       </div>
     </div>
